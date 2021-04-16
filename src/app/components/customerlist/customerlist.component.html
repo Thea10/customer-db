@@ -1,0 +1,313 @@
+<div class="item-list px-4 px-lg-5" id="item-list">
+  <div class="table-responsive bg-transparent mt-2 mt-md-5">
+    <table mdbTable #tableEl="mdbTable" hover="true" class="table">
+      <thead>
+        <tr>
+          <th class="pl-lg-5">
+            <span class="d-flex align-items-center">
+              <a> Name</a>
+            </span>
+          </th>
+          <th>
+            <span class="d-flex align-items-center">
+              <a>Age</a>
+            </span>
+          </th>
+          <th>
+            <span class="d-flex align-items-center">
+              <a> Gender</a>
+            </span>
+          </th>
+
+          <th>
+            <span class="d-flex align-items-center">
+              <a> Street</a>
+            </span>
+          </th>
+          <th>
+            <span class="d-flex align-items-center">
+              <a> Postcode</a>
+            </span>
+          </th>
+          <th>
+            <span class="d-flex align-items-center">
+              <a> House No</a>
+            </span>
+          </th>
+
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let person of persons; let i = index"
+         
+        >
+        
+          <td
+            *ngIf="
+              i + 1 >= mdbTablePagination.firstItemIndex &&
+              i < mdbTablePagination.lastItemIndex
+            "
+            class="pl-lg-5"
+          >
+          
+
+            {{ person?.name | titlecase }}
+          </td>
+
+          <td
+            *ngIf="
+              i + 1 >= mdbTablePagination.firstItemIndex &&
+              i < mdbTablePagination.lastItemIndex
+            "
+          >
+            {{ person?.age  }}
+          </td>
+
+          <td
+            *ngIf="
+              i + 1 >= mdbTablePagination.firstItemIndex &&
+              i < mdbTablePagination.lastItemIndex
+            "
+          >
+            {{ person?.gender }}
+          </td>
+
+          <td
+            *ngIf="
+              i + 1 >= mdbTablePagination.firstItemIndex &&
+              i < mdbTablePagination.lastItemIndex
+            "
+          >
+            {{ person?.address.street }}
+          </td>
+          <td
+          *ngIf="
+            i + 1 >= mdbTablePagination.firstItemIndex &&
+            i < mdbTablePagination.lastItemIndex
+          "
+        >
+          {{ person?.address.postcode }}
+        </td>
+        <td
+        *ngIf="
+          i + 1 >= mdbTablePagination.firstItemIndex &&
+          i < mdbTablePagination.lastItemIndex
+        "
+      >
+        {{ person?.address.housenumber }}
+      </td>
+
+          <td
+            *ngIf="
+              i + 1 >= mdbTablePagination.firstItemIndex &&
+              i < mdbTablePagination.lastItemIndex
+            "
+          >
+
+          
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-view" (click)="editCustomerModal.show()">
+             Edit 
+            </button>
+
+            <button class="btn btn-view" (click)="deleteCustomer(person?.customerId)">
+                Delete 
+               </button>
+
+               </div>
+          </td>
+ 
+
+          <div
+    mdbModal
+    #editCustomerModal="mdbModal"
+    class="modal fade add-regular-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myBasicModalLabel"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-header">
+        <h5>Edit Customer</h5>
+        <a (click)="formHolder.resetForm(); editCustomerModal.hide()">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <form
+        class="modal-content px-4"
+        #formHolder="ngForm"
+        (keyup.enter)="$event.stopPropagation()"
+      >
+        <mdb-tabset
+          [buttonClass]="'classic-tabs tabs-color'"
+          [contentClass]="'card'"
+          class="classic-tabs"
+          #tabs
+        >
+          <mdb-tab heading="Details">
+            <div class="py-4 px-0">
+              <div class="form-row w-100 mb-2 justify-content-between p-2">
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    [(ngModel)]="person.name"
+                    name="firstname"
+                    #efirstName="ngModel"
+                    required
+                    [ngClass]="{ filled: person.name }"
+                  />
+                  <label class="label" for="First Name"> Name</label>
+
+                  <div *ngIf="efirstName.touched && efirstName.errors">
+                    <small
+                      class="text-danger"
+                      *ngIf="efirstName.errors?.required"
+                    >
+                     Name is required.
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    [(ngModel)]="person.gender"
+                    name="egender"
+                    #egender="ngModel"
+                    required
+                    [ngClass]="{ filled: person.gender }"
+                  />
+                  <label class="label" for="gender"> Gender</label>
+                  <div *ngIf="egender.touched && egender.errors">
+                    <small class="text-danger" *ngIf="egender.errors?.required">
+                      Your gender is required.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="person.age"
+                    name="DOB"
+                    [ngClass]="{ filled: person.age }"
+                    #DOB="ngModel"
+                    required
+                  />
+                  <label class="label" for="DOB"> Date of Birth*</label>
+                  <div *ngIf="DOB.touched && DOB.errors">
+                    <small class="text-danger" *ngIf="DOB.errors?.required">
+                     Date of birth is required.
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    [(ngModel)]="person.address.street"
+                    name="estreet"
+                    #estreet="ngModel"
+                    required
+                    [ngClass]="{ filled: person.address.street }"
+                  />
+                  <label class="label" for="street"> Street</label>
+                  <div *ngIf="estreet.touched && estreet.errors">
+                    <small class="text-danger" *ngIf="estreet.errors?.required">
+                       Street is required.
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    [(ngModel)]="person.address.postcode"
+                    name="epostcode"
+                    #epostcode="ngModel"
+                    required
+                    [ngClass]="{ filled: person.address.postcode }"
+                  />
+                  <label class="label" for="Postcode"> Gender</label>
+                  <div *ngIf="epostcode.touched && epostcode.errors">
+                    <small
+                      class="text-danger"
+                      *ngIf="epostcode.errors?.required"
+                    >
+                      Your Postcode is required.
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    [(ngModel)]="person.address.housenumber"
+                    name="ehousenumber"
+                    #ehousenumber="ngModel"
+                    required
+                    [ngClass]="{ filled: ehousenumber }"
+                  />
+                  <label class="label" for="housenumber"> House no</label>
+                  <div *ngIf="ehousenumber.touched && ehousenumber.errors">
+                    <small
+                      class="text-danger"
+                      *ngIf="ehousenumber.errors?.required"
+                    >
+                      House number is required.
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-add"  [disabled]="!person.name || !person.age || !person.gender || !person.address.street || !person.address.postcode || !person.address.housenumber" (click)="saveCustomers(); editCustomerModal.hide()">
+                    Save
+                  </button>
+                  <button class="btn btn-add" (click)="editCustomerModal.hide()">
+                    Cancel
+                  </button>
+
+              </div>
+
+             
+            </div>
+          </mdb-tab>
+        </mdb-tabset>
+      </form>
+    </div>
+  </div>
+        </tr>
+      </tbody>
+      <tfoot class="w-100">
+        <tr>
+          <td>
+            <span class="description" *ngIf="persons.length > 1">
+              Showing
+              {{ mdbTablePagination.lastVisibleItemIndex }} of
+              {{ persons.length }}
+            </span>
+            <span class="description" *ngIf="persons.length === 1"
+              >Showing 1</span
+            >
+          </td>
+ 
+         
+          <td colspan="4">
+            <mdb-table-pagination
+              [tableEl]="tableEl"
+              [searchDataSource]="persons"
+              [searchPagination]="false"
+              [hideDescription]="true"
+            ></mdb-table-pagination>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

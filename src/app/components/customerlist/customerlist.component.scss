@@ -1,0 +1,352 @@
+@import "../../../assets/scss/colors.scss";
+@import "../../../assets/scss/variables.scss";
+
+
+.table-responsive {
+  overflow-x: hidden;
+  border: 1px solid rgba(13, 13, 13, 0.1);
+  border-radius: 10px;
+  margin-top: 1rem !important;
+
+  .table {
+    thead,
+    tbody {
+      border: 0;
+      border-radius: 10px;
+      color: $activeText;
+      tr {
+        cursor: pointer;
+
+        th,
+        td {
+          width: unset !important;
+          height: unset !important;
+          font-size: 8px;
+          color: $activeText;
+          padding: 0.3rem !important;
+
+          button.btn-view {
+            padding: 8px 16px !important;
+            font-size: 12px !important;
+            font-weight: 900;
+            line-height: 18px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(13 13 13 / 60%);
+            border: 1px solid rgb(13 13 13 / 60%);
+          }
+
+          @include xsm-min {
+            font-size: 9px;
+            line-height: 24px;
+          }
+
+          @include sm-min {
+            font-size: 11px;
+            padding: 0.5rem !important;
+          }
+
+          @include md-min {
+            font-size: 12px;
+            padding: 1rem 0.4rem !important;
+            button.btn-view {
+              min-width: 86px;
+              width: fit-content;
+            }
+          }
+
+          @include xl-min {
+            font-size: 16px;
+            padding: 1rem 1.5rem !important;
+          }
+        }
+      }
+    }
+
+    thead {
+      tr {
+        th {
+          font-weight: bold;
+
+          border-bottom: none;
+          border-top: none;
+          i {
+            color: $disabled;
+            font-size: 14px;
+            @include sm-min {
+              font-size: 11px;
+            }
+          }
+
+          &.drop {
+            padding-right: 1rem !important;
+            i {
+              color: $actionButton;
+            }
+
+            background-image: none;
+            &.sorting {
+              background-image: none;
+            }
+            .table-actions {
+              top: 20%;
+              left: -50%;
+              background: $background;
+              box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+              border: none;
+              border-radius: 0;
+              color: $properText;
+              padding: 0;
+              width: 200px;
+
+              li {
+                padding: 0.5rem;
+                border-bottom: 1px solid rgba(163, 172, 191, 0.2);
+
+                h6 {
+                  font-size: 14px;
+                  line-height: 20px;
+                  margin-bottom: 0;
+                  @include md-min {
+                    font-size: 18px;
+                    line-height: 28.8px;
+                  }
+
+                  @include xsm-max {
+                    font-size: 11px;
+                  }
+                }
+
+                &:hover {
+                  background: $disabled;
+                  color: $background;
+                }
+                &.disabled {
+                  background: #efefef;
+                  color: #c6c4c4;
+                }
+              }
+
+              @include xsm-max {
+                left: -70%;
+                top: 35%;
+              }
+
+              @include md-min {
+                left: -65%;
+              }
+              @include lg-min {
+                left: -40%;
+              }
+            }
+          }
+
+          &:hover,
+          &:focus {
+            outline: 0;
+          }
+        }
+      }
+    }
+    tbody {
+      td {
+        vertical-align: baseline;
+      }
+      .member-details {
+        position: fixed;
+        width: 100%;
+        right: 0;
+        top: 0;
+        height: 100vh;
+        bottom: 0;
+        //width: 90vw;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+        background:$lightWhite;
+        z-index: 1030;
+        //   overflow: scroll;
+
+        &.show {
+          display: block;
+        }
+
+        .detail-head {
+          background: #ffffff;
+          padding: 16px;
+          border-bottom: 1px solid rgba(13, 13, 13, 0.2);
+        }
+
+        .detail-body {
+          padding: 2rem 1rem;
+          background:$lightWhite;
+          height: 75%;
+          overflow-x: hidden;
+        }
+
+        .show-profile-info {
+          .img-section {
+            .img-holder {
+              width: 150px;
+              height: 150px;
+              border-radius: 50%;
+              padding: 0.3rem;
+              background: $primaryDark;
+              color: $inputBg;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: zoom-in;
+
+              img {
+                height: 100%;
+                width: 100%;
+                border-radius: inherit;
+              }
+
+              i {
+                font-size: 36px;
+              }
+            }
+
+            a {
+              color: $disabled !important;
+              font-weight: 600;
+              margin-left: 1rem;
+              cursor: pointer;
+              background: transparent;
+            }
+          }
+          .profile-details {
+            h6 {
+              font-size: 14px;
+              line-height: 21px;
+              font-weight: 700;
+              margin-right: 0.5rem;
+              text-transform: capitalize;
+
+              span,
+              a,
+              &.info {
+                font-weight: normal;
+                background: transparent;
+                color: inherit !important;
+                //margin-left: 0.5rem;
+              }
+
+              @include lg-min {
+                font-size: 16px;
+                line-height: 18.75px;
+              }
+            }
+          }
+        }
+
+        .profile-actions {
+          background: #ffffff;
+          border-top: 1px solid rgba(45, 49, 53, 0.2);
+          padding: 0 1rem;
+          height: 20%;
+          align-items: center;
+          width: 100%;
+
+          .btn {
+            border-radius: 4px;
+            margin: 0 0.5rem;
+            width: auto;
+            // height: 26px;
+            font-size: 12px !important;
+            line-height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:hover,
+            &:focus {
+              background: transparent;
+              box-shadow: none;
+            }
+          }
+
+          .btn-delete {
+            border: 1px solid $actionButton;
+            background: transparent;
+            color: $actionButton;
+            font-weight: bold;
+
+            &:hover,
+            &:focus {
+              border: 1px solid #db3236;
+              color: #db3236;
+            }
+          }
+
+          .btn-update {
+            color:$lightWhite;
+            background: $actionButton;
+
+            &:hover,
+            &:focus {
+              border: 1px solid $actionButton;
+              background: transparent;
+              color: $actionButton;
+            }
+          }
+        }
+
+        // @include md-min {
+        //   width: 307px;
+        // }
+      }
+
+      tr {
+        &:hover,
+        &:focus,
+        &.active,
+        &.selected {
+          background: rgba(16, 1, 38, 0.2);
+          .select-rows {
+            opacity: 1;
+          }
+        }
+        &.selected {
+          .check {
+            display: table-cell;
+          }
+          top: 45%;
+          left: 6%;
+        }
+      }
+    }
+
+    tfoot {
+      td {
+        border: 0;
+        padding: 0;
+        vertical-align: middle;
+
+        .description {
+          color: $activeText;
+          font-size: 11px;
+          line-height: 18px;
+        }
+
+        .action-btn {
+          color: $actionButton;
+          font-size: 12px !important;
+          line-height: 18px;
+          border: 1px solid $actionButton;
+          padding: 0.3rem !important;
+          &:focus {
+            outline: 0;
+          }
+        }
+
+        @include md-min {
+          padding: 1rem;
+          .description {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,181 @@
+<div id="app-cus" class="customer-app p-3 p-md-5">
+  <button class="btn btn-add" (click)="addCustomerModal.show()">
+    Add Customer
+  </button>
+
+  <small *ngIf="customerList?.length < 1">
+    You don't have any customers yet
+  </small>
+
+  <app-customerlist
+    *ngIf="customerList?.length > 0"
+    [listItems]="customerList"
+    (deleteCustomer)="deleteCustomer($event)"
+    (updateCustomer)="updateCustomer($event)"
+  >
+  </app-customerlist>
+
+  <div
+    mdbModal
+    #addCustomerModal="mdbModal"
+    class="modal fade add-regular-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myBasicModalLabel"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-header">
+        <h5>Add Customer</h5>
+        <a (click)="formHolder.resetForm(); addCustomerModal.hide()">
+            close
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <form
+        class="modal-content px-4"
+        #formHolder="ngForm"
+        (keyup.enter)="$event.stopPropagation()"
+      >
+        <mdb-tabset
+          [buttonClass]="'classic-tabs tabs-color'"
+          [contentClass]="'card'"
+          class="classic-tabs"
+          #tabs
+        >
+          <mdb-tab heading="Details">
+            <div class="py-4 px-0">
+              <div class="form-row w-100 mb-2 justify-content-between p-2">
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    [(ngModel)]="name"
+                    name="firstname"
+                    #firstName="ngModel"
+                    required
+                    [ngClass]="{ filled: name }"
+                  />
+                  <label class="label" for="First Name"> Name</label>
+
+                  <div *ngIf="firstName.touched && firstName.errors">
+                    <small
+                      class="text-danger"
+                      *ngIf="firstName.errors?.required"
+                    >
+                      Your name is required.
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    [(ngModel)]="gender"
+                    name="cgender"
+                    #cgender="ngModel"
+                    required
+                    [ngClass]="{ filled: gender }"
+                  />
+                  <label class="label" for="gender"> Gender</label>
+                  <div *ngIf="cgender.touched && cgender.errors">
+                    <small class="text-danger" *ngIf="cgender.errors?.required">
+                      Your gender is required.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="age"
+                    name="DOB"
+                    [ngClass]="{ filled: age }"
+                    #DOB="ngModel"
+                    required
+                  />
+                  <label class="label" for="DOB"> Date of Birth*</label>
+                  <div *ngIf="DOB.touched && DOB.errors">
+                    <small class="text-danger" *ngIf="DOB.errors?.required">
+                      Your date of birth is required.
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    [(ngModel)]="address.street"
+                    name="street"
+                    #street="ngModel"
+                    required
+                    [ngClass]="{ filled: address.street }"
+                  />
+                  <label class="label" for="street"> Street</label>
+                  <div *ngIf="street.touched && street.errors">
+                    <small class="text-danger" *ngIf="street.errors?.required">
+                      Your Street is required.
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    [(ngModel)]="address.postcode"
+                    name="postcode"
+                    #postcode="ngModel"
+                    required
+                    [ngClass]="{ filled: postcode }"
+                  />
+                  <label class="label" for="Postcode"> Post code</label>
+                  <div *ngIf="postcode.touched && postcode.errors">
+                    <small
+                      class="text-danger"
+                      *ngIf="postcode.errors?.required"
+                    >
+                      Your Postcode is required.
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group col-md-4 p-0">
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    [(ngModel)]="address.housenumber"
+                    name="housenumber"
+                    #housenumber="ngModel"
+                    required
+                    [ngClass]="{ filled: housenumber }"
+                  />
+                  <label class="label" for="housenumber"> House no</label>
+                  <div *ngIf="housenumber.touched && housenumber.errors">
+                    <small
+                      class="text-danger"
+                      *ngIf="housenumber.errors?.required"
+                    >
+                      House number is required.
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-add"  [disabled]="!name || !age || !gender || !address.street || !address.postcode || !address.housenumber" (click)="saveCustomers(); formHolder.resetForm()">
+                    Save
+                  </button>
+                  <button class="btn btn-add" (click)="addCustomerModal.hide();  formHolder.resetForm()">
+                    Cancel
+                  </button>
+
+              </div>
+
+             
+            </div>
+          </mdb-tab>
+        </mdb-tabset>
+      </form>
+    </div>
+  </div>
+</div>
